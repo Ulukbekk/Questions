@@ -1,6 +1,10 @@
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+
+from users.models import Account
 
 
 class AccountRegistrationSerializer(serializers.ModelSerializer):
@@ -14,7 +18,7 @@ class AccountRegistrationSerializer(serializers.ModelSerializer):
                   'email',
                   'password',
                   'password2',
-                  'total')
+                  )
 
     def validate(self, attrs):
         user = User.objects.filter(username=attrs['email']).first()
@@ -23,3 +27,17 @@ class AccountRegistrationSerializer(serializers.ModelSerializer):
         if attrs['password'] != attrs['password2']:
             raise ValidationError({'Error': 'Passwords did not match'})
         return attrs
+
+    def create(self, validated_data):
+        user = User.objects.create(
+            username=validated_data['email'],
+            password=make_password(validated_data['password'])
+        )
+        account = Account.objects.create(
+            user=user,
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            email=validated_data['email'],
+        )
+
+        return account

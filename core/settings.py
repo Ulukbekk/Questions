@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework_simplejwt',
+    'whitenoise.runserver_nostatic',
 
     'users',
     'questions',
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -81,12 +83,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd95rdcaithpe4v',
+        'HOST': 'ec2-54-205-183-19.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'srinqiurgauwjd',
+        'PASSWORD': 'e1d4641beab0915af77743d66ac78e64f47026a75284ab632b91144fab6c260f'
     }
 }
 
-
+# postgres://srinqiurgauwjd:e1d4641beab0915af77743d66ac78e64f47026a75284ab632b91144fab6c260f@ec2-54-205-183-19.compute-1.amazonaws.com:5432/d95rdcaithpe4v
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

@@ -8,7 +8,7 @@ class Question(models.Model):
         return self.title
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question , on_delete=models.SET_NULL,
+    question = models.ForeignKey(Question, on_delete=models.SET_NULL,
                                  related_name='question_answer', blank=True, null=True)
     answer = models.TextField()
     is_correct = models.BooleanField(default=False)

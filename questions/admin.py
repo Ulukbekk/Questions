@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from questions.models import Question, Answer
+from questions.models import Answer, Question
 
 @admin.register(Answer)
 class AnserAdmin(admin.ModelAdmin):
@@ -10,6 +10,7 @@ class AnserAdmin(admin.ModelAdmin):
         'answer',
         'is_correct',
     )
+
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):

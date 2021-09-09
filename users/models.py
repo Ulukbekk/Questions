@@ -16,12 +16,15 @@ class Account(models.Model):
         return self.first_name
 
 
-class User_question(models.Model):
-    user = models.ForeignKey(Account, on_delete=models.SET_NULL,
-                             related_name='profile', null=True)
+class UserQuestion(models.Model):
+    account = models.ForeignKey(Account, on_delete=models.SET_NULL,
+                                related_name='profile', null=True)
     question = models.ForeignKey(Question, on_delete=models.SET_NULL,
                                  related_name='user_question', null=True)
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.user.username} - {self.question.question}'
+        return f'{self.account.first_name}'
+
+    def get_id(self):
+        return self.id

@@ -4,7 +4,7 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from users.models import Account
+from users.models import Account, UserQuestion
 
 
 class AccountRegistrationSerializer(serializers.ModelSerializer):
@@ -41,3 +41,11 @@ class AccountRegistrationSerializer(serializers.ModelSerializer):
         )
 
         return account
+
+
+class UserQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserQuestion
+        fields = ('user',
+                  'question',
+                  'is_correct')

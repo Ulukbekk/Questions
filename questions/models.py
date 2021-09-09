@@ -7,6 +7,7 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
+
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.SET_NULL,
                                  related_name='question_answer', blank=True, null=True)
@@ -14,4 +15,4 @@ class Answer(models.Model):
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.question
+        return self.question.title

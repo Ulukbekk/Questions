@@ -5,7 +5,7 @@ from users.models import Account
 class IsCorrectAnswerService:
 
     @classmethod
-    def is_correct(cls, user_answer: str, question_id):
+    def is_correct(cls, user_answer: str, question_id, user):
         question = Question.objects.filter(id=question_id).first()
         correct_answer = Answer.objects.filter(question=question).filter(is_correct=True).filter(
             answer=user_answer).first()

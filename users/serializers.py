@@ -49,3 +49,10 @@ class UserQuestionSerializer(serializers.ModelSerializer):
         fields = ('user',
                   'question',
                   'is_correct')
+
+class AccountDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ('first_name',
+                  'email',
+                  'total',)

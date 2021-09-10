@@ -1,10 +1,14 @@
+from django.db.models import F
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+
 from rest_framework import viewsets, status, generics
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-from questions.models import Question
-from questions.services import IsCorrectAnswerService
+from questions.models import Question, Answer
+from questions.serializers import QuizTestSerializers, QuestionSerializer, AnswerQuestionSerializer
+from questions.services import IsCorrectAnswerService, QuestionAnswerService
 from questions.validators import UserAnswerValidator, QuestionUrlValidator
 from users.models import UserQuestion, Account
 
@@ -47,4 +51,23 @@ def post(request, pk):
     #
     #     return Response('Ok', status=status.HTTP_200_OK)
         # User_question.objects.create(user=request.data.get('user'), question=request.data.get('question'), is_correct=self.validator_class.validate_answer(user_answer))
+
+
+class QuestionAPIView(generics.RetrieveAPIView):
+    serializer_class = AnswerQuestionSerializer
+    queryset = Question.objects.all()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

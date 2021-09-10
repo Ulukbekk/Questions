@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Question(models.Model):
     title = models.CharField(max_length=20)
     question = models.TextField()
@@ -18,4 +19,4 @@ class Answer(models.Model):
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.question.title
+        return f'{self.id}, {self.answer}'

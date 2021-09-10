@@ -1,10 +1,11 @@
 from questions.models import Question, Answer
+from users.models import Account
 
 
 class IsCorrectAnswerService:
 
     @classmethod
-    def is_correct(cls, user_answer: str, question_id):
+    def is_correct(cls, user_answer, question_id, user):
         question = Question.objects.filter(id=question_id).first()
         correct_answer = Answer.objects.filter(question=question).filter(is_correct=True).filter(
             answer=user_answer).first()
@@ -13,6 +14,10 @@ class IsCorrectAnswerService:
             return {
                 'bool': False,
                 'response': 'incorrect answer'}
+        account = Account.objects.filter(user=user).first()
+        account.total += 1
+        account.save()
+
         return {
             'bool': True,
             'response': 'correct answer'

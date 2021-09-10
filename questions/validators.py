@@ -20,12 +20,17 @@ class QuestionUrlValidator:
 
     @classmethod
     def question_answer(cls, pk, account) -> bool:
-        last_user_question = UserQuestion.objects.filter(account=account).order_by('-id').first() #the last question answered by the user
+        last_user_answer = UserQuestion.objects.filter(account=account).order_by('-id').first() #the last question answered by the user
+        last_user_question = Question.objects.filter(id=last_user_answer.question.get_id()).first()
 
-        if last_user_question == None and pk == 1:
+        if last_user_answer == None and pk == 1:
             return True
-        elif last_user_question == None and pk != 1:
+        elif last_user_answer == None and pk != 1:
+            return False
+        elif last_user_question.get_id() == pk:
+            account.total -= 1
+            account.save()
             return False
         else:
-            return True if last_user_question.get_id() == pk - 1 else False
+            return True if last_user_answer.get_id() == pk - 1 else False
 

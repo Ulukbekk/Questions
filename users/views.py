@@ -16,5 +16,5 @@ class AccountRegisterAPIView(generics.CreateAPIView):
 class AccountDetailAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = AccountDetailSerializer
     queryset = Account.objects.all()
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticated, IsOwner)
 

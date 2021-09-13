@@ -24,12 +24,13 @@ class QuestionUrlValidator:
             '-id').first()  # the last question answered by the user
 
         if last_user_answer is not None:
+            print('frf')
             last_user_question = Question.objects.filter(id=last_user_answer.question.get_id()).first()
             if last_user_question.id == pk:
                 account.total -= 1
                 account.save()
                 return False
-            return True if last_user_answer.get_id() == pk - 1 else False
+            return True if last_user_question.get_id() == pk - 1 else False
         else:
             if pk == 1:
                 return True

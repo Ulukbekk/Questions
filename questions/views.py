@@ -27,7 +27,7 @@ def post(request, pk):
     question = Question.objects.filter(id=pk).first()
 
     if validator_class_q_u.question_answer(pk, account):
-        is_correct = service_class.is_correct(user_answer, pk, user) #было перемещено так как работает с бд
+        is_correct = service_class.is_correct(user_answer, pk, user)
 
         user_question = UserQuestion.objects.create(
             account=account,
